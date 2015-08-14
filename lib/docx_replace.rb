@@ -14,8 +14,9 @@ module DocxReplace
       read_docx_file
     end
 
-    def replace(pattern, replacement, multiple_occurrences=false)
+    def replace(pattern, replacement, multiple_occurrences=false, case_insensitive = true)
       replace = replacement.to_s
+      pattern = Regexp.new(pattern, "i") if case_insensitive
       if multiple_occurrences
         @document_content.force_encoding("UTF-8").gsub!(pattern, replace)
       else
